@@ -48,7 +48,7 @@ export function getAnthropicClient(options?: { apiKey?: string; baseURL?: string
 /**
  * Verify the API key is valid by making a lightweight request.
  */
-export async function verfifyKey(apiKey?: string): Promise<boolean> {
+export async function verifyKey(apiKey?: string): Promise<boolean> {
   try {
     const client = getAnthropicClient(apiKey ? { apiKey } : undefined)
     await client.messages.create({

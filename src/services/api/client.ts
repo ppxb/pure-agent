@@ -44,3 +44,28 @@ export function getAnthropicClient(options?: { apiKey?: string; baseURL?: string
 
   return client
 }
+
+/**
+ * Verify the API key is valid by making a lightweight request.
+ */
+export async function verfifyKey(apiKey?: string): Promise<boolean> {
+  try {
+    const client = getAnthropicClient(apiKey ? { apiKey } : undefined)
+    await client.messages.create({
+      model: DEFAULT_MODEL,
+      max_tokens: 1,
+      messages: [{ role: 'user', content: 'hi' }]
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Reset the cached client instance.
+ * Useful when the API key changes at runtime.
+ */
+export function resetClient(): void {
+  clientInstance = null
+}
